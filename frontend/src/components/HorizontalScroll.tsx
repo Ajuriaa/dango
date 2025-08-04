@@ -17,7 +17,7 @@ export default function HorizontalScroll({ items = [] }: HorizontalScrollProps) 
   const scrollItems = items.length > 0 ? items : defaultItems
 
   return (
-    <section className="w-full py-6 bg-black/20 border-t border-white/10 overflow-hidden">
+    <section className="w-full py-6 bg-black md:bg-black/20 border-t border-white/10 overflow-hidden">
       <div className="flex animate-scroll whitespace-nowrap">
         {/* Triple items for seamless infinite scroll */}
         {[...scrollItems, ...scrollItems, ...scrollItems].map((item, index) => (
@@ -25,7 +25,7 @@ export default function HorizontalScroll({ items = [] }: HorizontalScrollProps) 
             <span className="text-white/70 text-lg md:text-xl font-light px-8">
               {item}
             </span>
-            <span className="text-purple-400 text-2xl px-4">/</span>
+            <span className="text-white md:text-purple-400 text-2xl px-4">/</span>
           </div>
         ))}
       </div>

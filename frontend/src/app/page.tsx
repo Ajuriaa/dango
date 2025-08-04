@@ -159,7 +159,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen">
-      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900">
+      <div className="bg-[radial-gradient(circle_at_center,_#a855f7,_#0f0f0f_80%)]">
         <Header />
         
         <HeroPanel
