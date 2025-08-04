@@ -65,3 +65,22 @@ export const partnersSectionQuery = `*[_type == "partnersSection"][0]{
     image
   }
 }`
+
+// GROQ query for our works section data
+export const ourWorksSectionQuery = `*[_type == "ourWorksSection"][0]{
+  title,
+  works[]{
+    image,
+    alt
+  }
+}`
+
+// GROQ query for our team section data
+export const ourTeamSectionQuery = `*[_type == "ourTeamSection"][0]{
+  label,
+  description,
+  teamCards[]{
+    name,
+    image
+  }
+}`

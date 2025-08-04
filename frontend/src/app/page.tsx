@@ -1,11 +1,14 @@
-import { client, homePageQuery, statsSectionQuery, highlightsSectionQuery, servicesSectionQuery, partnersSectionQuery, urlFor } from '@/lib/sanity'
+import { client, homePageQuery, statsSectionQuery, highlightsSectionQuery, servicesSectionQuery, partnersSectionQuery, ourWorksSectionQuery, ourTeamSectionQuery, urlFor } from '@/lib/sanity'
 import Header from '@/components/Header'
 import HeroPanel from '@/components/HeroPanel'
 import HorizontalScroll from '@/components/HorizontalScroll'
 import StatsSection from '@/components/StatsSection'
 import HighlightsSection from '@/components/HighlightsSection'
 import ServicesSection from '@/components/ServicesSection'
+import OurWorksSection from '@/components/OurWorksSection'
+import OurTeamSection from '@/components/OurTeamSection'
 import PartnersSection from '@/components/PartnersSection'
+import ContactSection from '@/components/ContactSection'
 
 async function getHomePageData() {
   try {
@@ -47,6 +50,26 @@ async function getServicesSectionData() {
   }
 }
 
+async function getOurWorksSectionData() {
+  try {
+    const data = await client.fetch(ourWorksSectionQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching our works section data:', error)
+    return null
+  }
+}
+
+async function getOurTeamSectionData() {
+  try {
+    const data = await client.fetch(ourTeamSectionQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching our team section data:', error)
+    return null
+  }
+}
+
 async function getPartnersSectionData() {
   try {
     const data = await client.fetch(partnersSectionQuery)
@@ -58,11 +81,13 @@ async function getPartnersSectionData() {
 }
 
 export default async function Home() {
-  const [homeData, statsData, highlightsData, servicesData, partnersData] = await Promise.all([
+  const [homeData, statsData, highlightsData, servicesData, ourWorksData, ourTeamData, partnersData] = await Promise.all([
     getHomePageData(),
     getStatsSectionData(),
     getHighlightsSectionData(),
     getServicesSectionData(),
+    getOurWorksSectionData(),
+    getOurTeamSectionData(),
     getPartnersSectionData()
   ])
 
@@ -102,6 +127,24 @@ export default async function Home() {
     testimonials: servicesData.testimonials?.map((testimonial: any) => ({
       ...testimonial,
       image: testimonial.image ? urlFor(testimonial.image).url() : null
+    }))
+  } : null
+
+  // Process our works data to convert images to URLs
+  const processedOurWorksData = ourWorksData ? {
+    ...ourWorksData,
+    works: ourWorksData.works?.map((work: any) => ({
+      ...work,
+      image: work.image ? urlFor(work.image).url() : null
+    }))
+  } : null
+
+  // Process our team data to convert images to URLs
+  const processedOurTeamData = ourTeamData ? {
+    ...ourTeamData,
+    teamCards: ourTeamData.teamCards?.map((member: any) => ({
+      ...member,
+      image: member.image ? urlFor(member.image).url() : null
     }))
   } : null
 
@@ -159,6 +202,23 @@ export default async function Home() {
           partners={processedPartnersData.partners}
         />
       )}
+      
+      {processedOurWorksData && (
+        <OurWorksSection
+          title={processedOurWorksData.title}
+          works={processedOurWorksData.works}
+        />
+      )}
+      
+      {processedOurTeamData && (
+        <OurTeamSection
+          label={processedOurTeamData.label}
+          description={processedOurTeamData.description}
+          teamCards={processedOurTeamData.teamCards}
+        />
+      )}
+      
+      <ContactSection />
     </div>
   )
 }
