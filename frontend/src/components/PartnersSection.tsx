@@ -21,15 +21,10 @@ export default function PartnersSection({
         
         {/* Section Label */}
         {label && (
-          <div className="text-sm text-gray-500 uppercase tracking-wider mb-8">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-16 md:mb-20 max-w-4xl mx-auto">
             {label}
-          </div>
+          </h2>
         )}
-        
-        {/* Main Title */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-16 md:mb-20 max-w-4xl mx-auto">
-          We're constantly inspired by our partners in this innovative and dynamic ecosystem.
-        </h2>
 
         {/* Partner Logos */}
         {partners.length > 0 && (

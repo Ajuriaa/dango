@@ -44,31 +44,38 @@ export default function ServicesSection({
                 Services
               </div>
               
-              <div className="space-y-6">
+              <div className="space-y-0">
                 {services.map((service, index) => (
                   <div key={index}>
-                    <h3 
-                      className={`text-3xl md:text-4xl lg:text-5xl font-bold cursor-pointer transition-colors duration-300 ${
-                        activeService === index 
-                          ? 'text-purple-400' 
-                          : 'text-white hover:text-gray-300'
-                      }`}
-                      onClick={() => setActiveService(index)}
-                    >
-                      {service.title}
-                    </h3>
+                    <div className="py-6">
+                      <h3 
+                        className={`text-3xl md:text-4xl lg:text-5xl font-bold cursor-pointer transition-colors duration-300 ${
+                          activeService === index 
+                            ? 'text-purple-400' 
+                            : 'text-white hover:text-gray-300'
+                        }`}
+                        onClick={() => setActiveService(index)}
+                      >
+                        {service.title}
+                      </h3>
+                      
+                      {/* Service Description - Show only for active service */}
+                      {activeService === index && service.description && (
+                        <div className="mt-4">
+                          <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg">
+                            {service.description}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Divider line - Show for all except last item */}
+                    {index < services.length - 1 && (
+                      <div className="border-b border-gray-600/30"></div>
+                    )}
                   </div>
                 ))}
               </div>
-              
-              {/* Active Service Description */}
-              {services[activeService]?.description && (
-                <div className="mt-8">
-                  <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg">
-                    {services[activeService].description}
-                  </p>
-                </div>
-              )}
             </div>
 
             {/* Right Column - Service Image */}
