@@ -1,4 +1,4 @@
-import { client, homePageQuery, statsSectionQuery, highlightsSectionQuery, servicesSectionQuery, partnersSectionQuery, ourWorksSectionQuery, ourTeamSectionQuery, urlFor } from '@/lib/sanity'
+import { client, homePageQuery, urlFor } from '@/lib/sanity'
 import Header from '@/components/Header'
 import HeroPanel from '@/components/HeroPanel'
 import HorizontalScroll from '@/components/HorizontalScroll'
@@ -20,76 +20,8 @@ async function getHomePageData() {
   }
 }
 
-async function getStatsSectionData() {
-  try {
-    const data = await client.fetch(statsSectionQuery)
-    return data
-  } catch (error) {
-    console.error('Error fetching stats section data:', error)
-    return null
-  }
-}
-
-async function getHighlightsSectionData() {
-  try {
-    const data = await client.fetch(highlightsSectionQuery)
-    return data
-  } catch (error) {
-    console.error('Error fetching highlights section data:', error)
-    return null
-  }
-}
-
-async function getServicesSectionData() {
-  try {
-    const data = await client.fetch(servicesSectionQuery)
-    return data
-  } catch (error) {
-    console.error('Error fetching services section data:', error)
-    return null
-  }
-}
-
-async function getOurWorksSectionData() {
-  try {
-    const data = await client.fetch(ourWorksSectionQuery)
-    return data
-  } catch (error) {
-    console.error('Error fetching our works section data:', error)
-    return null
-  }
-}
-
-async function getOurTeamSectionData() {
-  try {
-    const data = await client.fetch(ourTeamSectionQuery)
-    return data
-  } catch (error) {
-    console.error('Error fetching our team section data:', error)
-    return null
-  }
-}
-
-async function getPartnersSectionData() {
-  try {
-    const data = await client.fetch(partnersSectionQuery)
-    return data
-  } catch (error) {
-    console.error('Error fetching partners section data:', error)
-    return null
-  }
-}
-
 export default async function Home() {
-  const [homeData, statsData, highlightsData, servicesData, ourWorksData, ourTeamData, partnersData] = await Promise.all([
-    getHomePageData(),
-    getStatsSectionData(),
-    getHighlightsSectionData(),
-    getServicesSectionData(),
-    getOurWorksSectionData(),
-    getOurTeamSectionData(),
-    getPartnersSectionData()
-  ])
+  const homeData = await getHomePageData()
 
   if (!homeData) {
     return (
@@ -108,9 +40,9 @@ export default async function Home() {
     : null
 
   // Process highlights data to convert images to URLs
-  const processedHighlightsData = highlightsData ? {
-    ...highlightsData,
-    workCards: highlightsData.workCards?.map((card: any) => ({
+  const processedHighlightsData = homeData.workCards ? {
+    title: homeData.highlightsTitle,
+    workCards: homeData.workCards?.map((card: any) => ({
       ...card,
       image: card.image ? urlFor(card.image).url() : null,
       hoverImage: card.hoverImage ? urlFor(card.hoverImage).url() : null
@@ -118,40 +50,41 @@ export default async function Home() {
   } : null
 
   // Process services data to convert images to URLs
-  const processedServicesData = servicesData ? {
-    ...servicesData,
-    services: servicesData.services?.map((service: any) => ({
+  const processedServicesData = homeData.services ? {
+    services: homeData.services?.map((service: any) => ({
       ...service,
       image: service.image ? urlFor(service.image).url() : null
     })),
-    testimonials: servicesData.testimonials?.map((testimonial: any) => ({
+    testimonialsLabel: homeData.testimonialsLabel,
+    testimonials: homeData.testimonials?.map((testimonial: any) => ({
       ...testimonial,
       image: testimonial.image ? urlFor(testimonial.image).url() : null
     }))
   } : null
 
   // Process our works data to convert images to URLs
-  const processedOurWorksData = ourWorksData ? {
-    ...ourWorksData,
-    works: ourWorksData.works?.map((work: any) => ({
+  const processedOurWorksData = homeData.works ? {
+    title: homeData.ourWorksTitle,
+    works: homeData.works?.map((work: any) => ({
       ...work,
       image: work.image ? urlFor(work.image).url() : null
     }))
   } : null
 
   // Process our team data to convert images to URLs
-  const processedOurTeamData = ourTeamData ? {
-    ...ourTeamData,
-    teamCards: ourTeamData.teamCards?.map((member: any) => ({
+  const processedOurTeamData = homeData.teamCards ? {
+    label: homeData.ourTeamLabel,
+    description: homeData.ourTeamDescription,
+    teamCards: homeData.teamCards?.map((member: any) => ({
       ...member,
       image: member.image ? urlFor(member.image).url() : null
     }))
   } : null
 
   // Process partners data to convert images to URLs
-  const processedPartnersData = partnersData ? {
-    ...partnersData,
-    partners: partnersData.partners?.map((partner: any) => ({
+  const processedPartnersData = homeData.partners ? {
+    label: homeData.partnersLabel,
+    partners: homeData.partners?.map((partner: any) => ({
       ...partner,
       image: partner.image ? urlFor(partner.image).url() : null
     }))
@@ -163,8 +96,8 @@ export default async function Home() {
         <Header />
         
         <HeroPanel
-          title={homeData.title}
-          subtitle={homeData.subtitle}
+          title={homeData.heroTitle}
+          subtitle={homeData.heroSubtitle}
           heroImage={heroImageUrl}
           mainButtonLabel={homeData.mainButtonLabel}
           shopifyPartnerImage={shopifyPartnerImageUrl}
@@ -173,11 +106,11 @@ export default async function Home() {
         <HorizontalScroll items={homeData.scrollItems} />
       </div>
       
-      {statsData && (
+      {homeData.statistics && (
         <StatsSection
-          title={statsData.title}
-          description={statsData.description}
-          stats={statsData.stats}
+          title={homeData.statsTitle}
+          description={homeData.statsDescription}
+          stats={homeData.statistics}
         />
       )}
       
