@@ -15,24 +15,24 @@ export default function Header() {
         
         <div className="flex items-center space-x-8">
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#services" className="text-gray-300 hover:text-white transition-colors text-sm">
               Services
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#our-work" className="text-gray-300 hover:text-white transition-colors text-sm">
               Our Work
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#team" className="text-gray-300 hover:text-white transition-colors text-sm">
               Team
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#contact" className="text-gray-300 hover:text-white transition-colors text-sm">
               Contact
             </a>
           </nav>
 
           <div className="hidden md:block bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 p-[2px] rounded-full">
-            <button className="w-full h-full bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase">
+            <a href="#contact" className="w-full h-full bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase flex items-center justify-center">
               GET IN TOUCH
-            </button>
+            </a>
           </div>
 
           

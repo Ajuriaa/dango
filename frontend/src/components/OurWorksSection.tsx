@@ -15,7 +15,7 @@ export default function OurWorksSection({ title, works }: OurWorksSectionProps) 
   if (!title || !works?.length) return null
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section id="our-work" className="py-16 md:py-24 bg-white">
       <div className="md:px-20 mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">

@@ -16,7 +16,7 @@ export default function OurTeamSection({ label, description, teamCards }: OurTea
   if (!label || !teamCards?.length) return null
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section id="team" className="py-16 md:py-24 bg-white">
         <div className="md:px-20 flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
           <div className="md:w-1/3">
             <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">

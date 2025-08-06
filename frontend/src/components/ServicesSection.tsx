@@ -32,7 +32,7 @@ export default function ServicesSection({
   if (!services.length) return null
 
   return (
-    <section       
+    <section id="services"       
       style={{
         backgroundImage: 'radial-gradient(ellipse at right, hsla(271, 100%, 53%, 1) 0%, hsla(0, 0%, 0%, 1) 40%)',
         backgroundSize: '100% 250%',
