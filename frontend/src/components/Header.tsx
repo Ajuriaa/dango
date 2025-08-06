@@ -29,9 +29,12 @@ export default function Header() {
             </a>
           </nav>
 
-          <button className="hidden md:block border border-purple-500 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase">
-            GET IN TOUCH
-          </button>
+          <div className="hidden md:block bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 p-[2px] rounded-full">
+            <button className="w-full h-full bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase">
+              GET IN TOUCH
+            </button>
+          </div>
+
           
           <button className="md:hidden p-2 text-white">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

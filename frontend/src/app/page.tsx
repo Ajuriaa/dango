@@ -92,8 +92,14 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen">
-      <div className="bg-[radial-gradient(circle_at_center,_#a855f7,_#0f0f0f_80%)]">
-        <Header />
+    <div
+      style={{
+        backgroundImage: 'radial-gradient(ellipse at bottom, hsla(271, 100%, 53%, 1) 0%, hsla(0, 0%, 0%, 1) 25%)',
+        backgroundSize: '250% 100%',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Header />
         
         <HeroPanel
           title={homeData.heroTitle}
