@@ -17,18 +17,18 @@ export default function PartnersSection({
 
   return (
     <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="max-w-6xl mx-auto text-center flex flex-col items-center">
         
         {/* Section Label */}
         {label && (
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-16 md:mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-[36px] poppins-medium text-gray-900 leading-lazy mb-16 md:mb-20 max-w-3xl mx-auto text-left">
             {label}
           </h2>
         )}
 
         {/* Partner Logos */}
         {partners.length > 0 && (
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
+          <div className="flex flex-wrap justify-around items-center gap-8 md:gap-12 lg:gap-16 md:max-w-3xl">
             {partners.map((partner, index) => (
               <div 
                 key={index} 

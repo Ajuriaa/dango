@@ -104,17 +104,15 @@ export default async function Home() {
       }}
     >
       <Header />
-        
-        <HeroPanel
-          title={homeData.heroTitle}
-          subtitle={homeData.heroSubtitle}
-          heroImage={heroImageUrl}
-          mainButtonLabel={homeData.mainButtonLabel}
-          shopifyPartnerImage={shopifyPartnerImageUrl}
-        />
-        
-        <HorizontalScroll items={homeData.scrollItems} />
-      </div>
+      <HeroPanel
+        title={homeData.heroTitle}
+        subtitle={homeData.heroSubtitle}
+        heroImage={heroImageUrl}
+        mainButtonLabel={homeData.mainButtonLabel}
+        shopifyPartnerImage={shopifyPartnerImageUrl}
+      /> 
+      <HorizontalScroll items={homeData.scrollItems} />
+    </div>
       
       {homeData.statistics && (
         <StatsSection
@@ -130,7 +128,7 @@ export default async function Home() {
           workCards={processedHighlightsData.workCards}
         />
       )}
-      
+
       {processedServicesData && (
         <ServicesSection
           services={processedServicesData.services}

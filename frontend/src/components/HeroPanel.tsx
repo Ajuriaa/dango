@@ -32,13 +32,13 @@ export default function HeroPanel({
             )}
             
             {mainButtonLabel && (
-              <button className="bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 text-white poppins-semibold md:text-[16px] px-6 py-3 rounded-full">
+              <button className="cursor-pointer bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 text-white poppins-semibold md:text-[16px] px-6 py-3 rounded-full">
                 {mainButtonLabel}
               </button>
             )}
 
             {shopifyPartnerImage && (
-              <div className="md:block md:mt-20">
+              <div className="md:block md:mt-15">
                 <div>
                   <Image
                     src={shopifyPartnerImage}

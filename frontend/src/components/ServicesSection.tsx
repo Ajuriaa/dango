@@ -32,11 +32,16 @@ export default function ServicesSection({
   if (!services.length) return null
 
   return (
-    <section className="w-full bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900">
+    <section       
+      style={{
+        backgroundImage: 'radial-gradient(ellipse at right, hsla(271, 100%, 53%, 1) 0%, hsla(0, 0%, 0%, 1) 40%)',
+        backgroundSize: '100% 250%',
+        backgroundPosition: 'center'
+      }} 
+      className="w-full">
       {/* Services Section */}
-      <div className="py-16 md:py-24 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="py-16 md:py-24 px-4 md:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-12 lg:gap-16 items-center">
             
             {/* Left Column - Service Titles */}
             <div className="space-y-8">
@@ -49,7 +54,7 @@ export default function ServicesSection({
                   <div key={index}>
                     <div className="py-6">
                       <h3 
-                        className={`text-3xl md:text-4xl lg:text-5xl font-bold cursor-pointer transition-colors duration-300 ${
+                        className={`text-3xl md:text-[64px] poppins-medium cursor-pointer transition-colors duration-300 ${
                           activeService === index 
                             ? 'text-purple-400' 
                             : 'text-white hover:text-gray-300'
@@ -62,7 +67,7 @@ export default function ServicesSection({
                       {/* Service Description - Show only for active service */}
                       {activeService === index && service.description && (
                         <div className="mt-4">
-                          <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg">
+                          <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
                             {service.description}
                           </p>
                         </div>
@@ -85,7 +90,8 @@ export default function ServicesSection({
                   <Image
                     src={services[activeService].image}
                     alt={services[activeService].title}
-                    fill
+                    width={400}
+                    height={800}
                     className="object-cover"
                   />
                 </div>
@@ -93,14 +99,12 @@ export default function ServicesSection({
             </div>
             
           </div>
-        </div>
       </div>
 
       {/* Testimonials Section */}
       {testimonials.length > 0 && (
-        <div className="py-16 md:py-24 px-4 md:px-8 bg-black/20">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="w-full md:px-20 mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-[35%_65%] gap-12 lg:gap-16">
               
               {/* Left Column - Testimonials Header */}
               <div className="space-y-8">
@@ -159,7 +163,6 @@ export default function ServicesSection({
               
             </div>
           </div>
-        </div>
       )}
     </section>
   )

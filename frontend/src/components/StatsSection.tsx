@@ -18,17 +18,17 @@ export default function StatsSection({
 
   return (
     <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Title and Description */}
-        <div className="max-w-4xl mb-16 md:mb-20">
+        <div className="w-full mb-16 md:mb-20">
           {title && (
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
+            <h2 className="poppins-medium text-2xl md:text-[45px] text-gray-900">
               {title}
             </h2>
           )}
           
           {description && (
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+            <p className="md:text-[20px] md:mt-4 text-gray-600 leading-10">
               {description}
             </p>
           )}
@@ -42,7 +42,7 @@ export default function StatsSection({
                 key={index}
                 className="bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 rounded-2xl p-8 md:p-10 text-white"
               >
-                <div className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                <div className="text-4xl md:text-6xl mb-4 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
                   {stat.number}
                 </div>
                 <p className="text-gray-200 text-lg md:text-xl leading-relaxed">

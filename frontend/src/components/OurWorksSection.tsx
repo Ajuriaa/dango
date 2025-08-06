@@ -16,7 +16,7 @@ export default function OurWorksSection({ title, works }: OurWorksSectionProps) 
 
   return (
     <section className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="md:px-20 mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
             {title}
@@ -26,21 +26,36 @@ export default function OurWorksSection({ title, works }: OurWorksSectionProps) 
           </button>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-          {works.map((work, index) => (
-            <div
-              key={index}
-              className="relative aspect-square rounded-2xl overflow-hidden bg-gray-100 hover:opacity-90 transition-opacity duration-200 cursor-pointer"
-            >
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 items-start">
+          {works.map((work, index) => {
+            const ref = work.image?.asset?._ref
+            let width = 500
+            let height = 500
+
+            if (ref) {
+              const dimensionsPart = ref.split('-')[2]
+              if (dimensionsPart) {
+                const [parsedWidth, parsedHeight] = dimensionsPart
+                  .split('x')
+                  .map(Number)
+                if (parsedWidth && parsedHeight) {
+                  width = parsedWidth
+                  height = parsedHeight
+                }
+              }
+            }
+
+            return (
               <Image
+                key={index}
                 src={urlFor(work.image).url()}
                 alt={work.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 50vw, 20vw"
+                width={width}
+                height={height}
+                className="w-full h-auto"
               />
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
