@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 interface HeroPanelProps {
   title?: string
@@ -15,30 +18,82 @@ export default function HeroPanel({
   mainButtonLabel,
   shopifyPartnerImage 
 }: HeroPanelProps) {
+  const contentVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { 
+      opacity: 1, 
+      x: 0
+    }
+  }
+
+  const imageVariants = {
+    hidden: { opacity: 0, x: 50, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      scale: 1
+    }
+  }
+
   return (
     <section className="w-full py-16 md:py-24 px-4 relative">
         <div className="flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-16 md:items-center md:px-20">
-          <div className="space-y-8 md:space-y-10 order-1 md:order-1">
+          <motion.div 
+            className="space-y-8 md:space-y-10 order-1 md:order-1"
+            initial="hidden"
+            animate="visible"
+            variants={contentVariants}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut"
+            }}
+          >
             {title && (
-              <h1 className="md:text-[64px] poppins-medium text-white leading-[1.1]">
+              <motion.h1 
+                className="md:text-[64px] poppins-medium text-white leading-[1.1]"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
                 {title}
-              </h1>
+              </motion.h1>
             )}
             
             {subtitle && (
-              <p className="md:text-[20px] text-gray-300 leading-relaxed poppins-medium">
+              <motion.p 
+                className="md:text-[20px] text-gray-300 leading-relaxed poppins-medium"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 {subtitle}
-              </p>
+              </motion.p>
             )}
             
             {mainButtonLabel && (
-              <button className="cursor-pointer bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 text-white poppins-semibold md:text-[16px] px-6 py-3 rounded-full">
+              <motion.button 
+                className="cursor-pointer bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 text-white poppins-semibold md:text-[16px] px-6 py-3 rounded-full"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 10px 25px rgba(139, 69, 19, 0.3)",
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
                 {mainButtonLabel}
-              </button>
+              </motion.button>
             )}
 
             {shopifyPartnerImage && (
-              <div className="md:block md:mt-15">
+              <motion.div 
+                className="md:block md:mt-15"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 <div>
                   <Image
                     src={shopifyPartnerImage}
@@ -47,10 +102,24 @@ export default function HeroPanel({
                     height={60}
                   />
                 </div>
-              </div>
+              </motion.div>
             )}
-          </div>
-          <div className="order-3 md:order-2 relative -mx-4 md:mx-0 h-full">
+          </motion.div>
+          <motion.div 
+            className="order-3 md:order-2 relative -mx-4 md:mx-0 h-full"
+            initial="hidden"
+            animate="visible"
+            variants={imageVariants}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              ease: "easeOut"
+            }}
+            whileHover={{ 
+              scale: 1.02,
+              transition: { duration: 0.3 }
+            }}
+          >
             {heroImage && (
               <Image
                 src={heroImage}
@@ -60,7 +129,7 @@ export default function HeroPanel({
                 priority
               />
             )}
-          </div>
+          </motion.div>
         </div>
     </section>
   )

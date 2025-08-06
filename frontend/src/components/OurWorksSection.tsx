@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { urlFor } from '@/lib/sanity'
 
 interface Work {
@@ -26,7 +29,22 @@ export default function OurWorksSection({ title, works }: OurWorksSectionProps) 
           </button>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 items-start">
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 items-start"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+              }
+            }
+          }}
+        >
           {works.map((work, index) => {
             const ref = work.image?.asset?._ref
             let width = 500
@@ -46,17 +64,34 @@ export default function OurWorksSection({ title, works }: OurWorksSectionProps) 
             }
 
             return (
-              <Image
+              <motion.div
                 key={index}
-                src={urlFor(work.image).url()}
-                alt={work.alt}
-                width={width}
-                height={height}
-                className="w-full h-auto"
-              />
+                variants={{
+                  hidden: { 
+                    opacity: 0, 
+                    y: 30
+                  },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0
+                  }
+                }}
+                transition={{ 
+                  duration: 0.6,
+                  ease: "easeOut"
+                }}
+              >
+                <Image
+                  src={urlFor(work.image).url()}
+                  alt={work.alt}
+                  width={width}
+                  height={height}
+                  className="w-full h-auto"
+                />
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
