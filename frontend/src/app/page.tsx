@@ -97,6 +97,10 @@ export default async function Home() {
         backgroundImage: 'radial-gradient(ellipse at bottom, hsla(271, 100%, 53%, 1) 0%, hsla(0, 0%, 0%, 1) 25%)',
         backgroundSize: '250% 100%',
         backgroundPosition: 'center',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
       }}
     >
       <Header />

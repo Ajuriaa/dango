@@ -3,8 +3,8 @@ import logo from '@/assets/logo.webp'
 
 export default function Header() {
   return (
-    <header className="bg-black p-4 w-full md:px-8 relative z-10">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
+    <header className="bg-black p-4 w-full md:px-20 relative z-10">
+      <div className="flex justify-between items-center w-full px-5">
         <div className="flex items-center">
           <Image
             src={logo}
