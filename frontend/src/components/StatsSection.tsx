@@ -57,20 +57,20 @@ export default function StatsSection({
       <div className="max-w-5xl mx-auto">
         {/* Title and Description */}
         <motion.div 
-          className="w-full mb-16 md:mb-20"
+          className="w-full mb-8 md:mb-20"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={titleVariants}
         >
           {title && (
-            <h2 className="poppins-medium text-2xl md:text-[45px] text-gray-900">
+            <h2 className="poppins-medium text-[24px] mb-4 md:mb-0 md:text-[45px] text-gray-900">
               {title}
             </h2>
           )}
           
           {description && (
-            <p className="md:text-[20px] md:mt-4 text-gray-600 leading-10">
+            <p className="md:text-[20px] md:mt-4 text-gray-800 leading-8 md:leading-10">
               {description}
             </p>
           )}
@@ -88,7 +88,7 @@ export default function StatsSection({
             {stats.map((stat, index) => (
               <motion.div 
                 key={index}
-                className="bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 rounded-2xl p-8 md:p-10 text-white hover:shadow-xl hover:shadow-purple-500/20 transition-shadow duration-300"
+                className="poppins-medium bg-gradient-to-r from-purple-600 via-black to-black md:bg-[radial-gradient(ellipse_at_bottom,_hsla(271,100%,53%,1)_0%,_hsla(0,0%,0%,1)_70%)] rounded-2xl text-white hover:shadow-xl hover:shadow-purple-500/20 transition-shadow duration-300 py-4 px-6 flex justify-between items-center md:block"
                 variants={cardVariants}
                 whileHover={{ 
                   scale: 1.05,
@@ -97,7 +97,7 @@ export default function StatsSection({
                 whileTap={{ scale: 0.98 }}
               >
                 <motion.div 
-                  className="text-4xl md:text-6xl mb-4 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent"
+                  className="md:text-[48px] text-[40px] md:mb-4 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
@@ -110,7 +110,7 @@ export default function StatsSection({
                 >
                   {stat.number}
                 </motion.div>
-                <p className="text-gray-200 text-lg md:text-xl leading-relaxed">
+                <p className="text-gray-200 text-[13px] md:text-xl leading-relaxed max-w-[160px] md:max-w-none">
                   {stat.description}
                 </p>
               </motion.div>
