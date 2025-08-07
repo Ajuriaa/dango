@@ -176,6 +176,15 @@ export default {
                 hotspot: true
               },
               validation: Rule => Rule.required()
+            },
+            {
+              name: 'link',
+              title: 'Project Link',
+              type: 'url',
+              description: 'URL to the project or case study (optional)',
+              validation: Rule => Rule.uri({
+                scheme: ['http', 'https']
+              })
             }
           ],
           preview: {
