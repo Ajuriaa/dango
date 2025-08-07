@@ -204,7 +204,7 @@ export default function ServicesSection({
       {/* Testimonials Section */}
       {testimonials.length > 0 && (
           <motion.div 
-            className="w-full md:px-20 mx-auto"
+            className="w-full md:px-20 mx-auto overflow-hidden"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -233,17 +233,17 @@ export default function ServicesSection({
 
               {/* Right Column - Testimonials Carousel */}
               <motion.div 
-                className="relative"
+                className="relative overflow-hidden"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide px-4 md:px-0">
                   {testimonials.map((testimonial, index) => (
                     <motion.div 
                       key={index} 
-                      className="flex-shrink-0 w-80 bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8"
+                      className="flex-shrink-0 w-72 md:w-80 bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8"
                       initial={{ opacity: 0, scale: 0.9, y: 30 }}
                       whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}

@@ -20,7 +20,7 @@ export default function HorizontalScroll({ items = [] }: HorizontalScrollProps) 
 
   return (
     <motion.section 
-      className="w-full py-6 bg-black md:bg-black/20 border-t border-white/10 overflow-hidden"
+      className="w-full py-6 bg-black md:bg-transparent overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -37,23 +37,14 @@ export default function HorizontalScroll({ items = [] }: HorizontalScrollProps) 
               transition: { duration: 0.2 }
             }}
           >
-            <span className="text-white/70 text-lg md:text-xl font-light px-8 hover:text-white transition-colors duration-300">
+            <span className="poppins-medium text-white text-[16px] md:text-xl font-light px-8 hover:text-white transition-colors duration-300">
               {item}
             </span>
-            <motion.span 
+            <span 
               className="text-white md:text-purple-400 text-2xl px-4"
-              animate={{ 
-                rotate: [0, 360],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{ 
-                duration: 4,
-                repeat: Infinity,
-                ease: "linear"
-              }}
             >
               /
-            </motion.span>
+            </span>
           </motion.div>
         ))}
       </div>

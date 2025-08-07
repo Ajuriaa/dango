@@ -91,17 +91,9 @@ export default async function Home() {
   } : null
 
   return (
-    <div className="min-h-screen">
+    <div>
     <div
-      style={{
-        backgroundImage: 'radial-gradient(ellipse at bottom, hsla(271, 100%, 53%, 1) 0%, hsla(0, 0%, 0%, 1) 25%)',
-        backgroundSize: '250% 100%',
-        backgroundPosition: 'center',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
+      className='flex flex-col justify-between bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600 via-black to-black md:h-[100vh] md:bg-[radial-gradient(ellipse_at_bottom,_hsla(271,100%,53%,1)_0%,_hsla(0,0%,0%,1)_25%)] md:bg-[length:250%_100%] md:bg-center'
     >
       <Header />
       <HeroPanel
