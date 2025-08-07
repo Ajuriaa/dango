@@ -20,17 +20,21 @@ export default function Header() {
         
         <div className="flex items-center space-x-8">
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#services" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#services" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
               Services
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="#our-work" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#our-work" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
               Our Work
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="#team" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#team" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
               Team
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
             </a>
-            <a href="#contact" className="text-gray-300 hover:text-white transition-colors text-sm">
+            <a href="#contact" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
               Contact
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
             </a>
           </nav>
 
@@ -84,7 +88,14 @@ export default function Header() {
               <motion.a 
                 href="#services" 
                 className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' })
+                    setTimeout(() => setIsMenuOpen(false), 800)
+                  }
+                }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
@@ -94,7 +105,14 @@ export default function Header() {
               <motion.a 
                 href="#our-work" 
                 className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' })
+                    setTimeout(() => setIsMenuOpen(false), 800)
+                  }
+                }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.15 }}
@@ -104,7 +122,14 @@ export default function Header() {
               <motion.a 
                 href="#team" 
                 className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' })
+                    setTimeout(() => setIsMenuOpen(false), 800)
+                  }
+                }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
@@ -114,7 +139,14 @@ export default function Header() {
               <motion.a 
                 href="#contact" 
                 className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' })
+                    setTimeout(() => setIsMenuOpen(false), 800)
+                  }
+                }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.25 }}
@@ -130,7 +162,14 @@ export default function Header() {
                 <a 
                   href="#contact" 
                   className="w-full h-full bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 text-white px-6 py-3 rounded-full text-sm font-medium transition-colors uppercase flex items-center justify-center"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                  e.preventDefault()
+                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' })
+                    setTimeout(() => setIsMenuOpen(false), 800)
+                  }
+                }}
                 >
                   GET IN TOUCH
                 </a>
