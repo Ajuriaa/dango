@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 interface HeroPanelProps {
   title?: string
   subtitle?: string
-  heroImage?: any
+  heroVideo?: string
   mainButtonLabel?: string
   shopifyPartnerImage?: any
 }
@@ -14,7 +14,7 @@ interface HeroPanelProps {
 export default function HeroPanel({ 
   title, 
   subtitle, 
-  heroImage, 
+  heroVideo, 
   mainButtonLabel,
   shopifyPartnerImage 
 }: HeroPanelProps) {
@@ -120,13 +120,15 @@ export default function HeroPanel({
               transition: { duration: 0.3 }
             }}
           >
-            {heroImage && (
-              <Image
-                src={heroImage}
-                alt={title || "Hero image"}
-                fill
-                className="rounded-lg object-cover h-full"
-                priority
+            {heroVideo && (
+              <video
+                src={heroVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="rounded-lg object-cover w-full h-full"
+                poster=""
               />
             )}
           </motion.div>

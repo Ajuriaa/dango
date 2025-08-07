@@ -44,12 +44,12 @@ export default {
       validation: Rule => Rule.required()
     },
     {
-      name: 'heroImage',
-      title: 'Hero Image',
-      type: 'image',
+      name: 'heroVideo',
+      title: 'Hero Video',
+      type: 'file',
       fieldset: 'hero',
       options: {
-        hotspot: true
+        accept: 'video/*'
       },
       validation: Rule => Rule.required()
     },

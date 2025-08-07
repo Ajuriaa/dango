@@ -1,4 +1,4 @@
-import { client, homePageQuery, urlFor } from '@/lib/sanity'
+import { client, homePageQuery, urlFor, getFileUrl } from '@/lib/sanity'
 import Header from '@/components/Header'
 import HeroPanel from '@/components/HeroPanel'
 import HorizontalScroll from '@/components/HorizontalScroll'
@@ -35,8 +35,8 @@ export default async function Home() {
     ? urlFor(homeData.shopifyPartnerImage).url() 
     : null
 
-  const heroImageUrl = homeData.heroImage 
-    ? urlFor(homeData.heroImage).url() 
+  const heroVideoUrl = homeData.heroVideo 
+    ? getFileUrl(homeData.heroVideo)
     : null
 
   // Process highlights data to convert images to URLs
@@ -107,7 +107,7 @@ export default async function Home() {
       <HeroPanel
         title={homeData.heroTitle}
         subtitle={homeData.heroSubtitle}
-        heroImage={heroImageUrl}
+        heroVideo={heroVideoUrl || undefined}
         mainButtonLabel={homeData.mainButtonLabel}
         shopifyPartnerImage={shopifyPartnerImageUrl}
       /> 
