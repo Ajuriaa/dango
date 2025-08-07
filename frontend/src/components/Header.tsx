@@ -4,7 +4,7 @@ import logo from '@/assets/logo.webp'
 export default function Header() {
   return (
     <header className="bg-black p-4 w-full md:px-20 relative z-10">
-      <div className="flex justify-between items-center w-full px-5">
+      <div className="flex justify-between items-center w-full">
         <div className="flex items-center">
           <Image
             src={logo}
@@ -29,7 +29,7 @@ export default function Header() {
             </a>
           </nav>
 
-          <div className="hidden md:block bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 p-[2px] rounded-full">
+          <div className="hidden md:block bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 p-[2px] rounded-full !mr-0">
             <a href="#contact" className="w-full h-full bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase flex items-center justify-center">
               GET IN TOUCH
             </a>

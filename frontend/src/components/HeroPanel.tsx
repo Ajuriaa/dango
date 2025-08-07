@@ -36,8 +36,8 @@ export default function HeroPanel({
   }
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 relative">
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-16 md:items-center md:px-20">
+    <section className="w-full py-16 md:p-0 px-4 relative">
+        <div className="flex flex-col md:grid md:grid-cols-2 md:justify-items-end gap-12 md:gap-16 md:items-center md:px-20">
           <motion.div 
             className="space-y-8 md:space-y-10 order-1 md:order-1"
             initial="hidden"
@@ -127,7 +127,7 @@ export default function HeroPanel({
                 muted
                 loop
                 playsInline
-                className="rounded-lg object-cover w-full h-full"
+                className="rounded-lg object-cover w-full md:w-[640px] h-full"
                 poster=""
               />
             )}
