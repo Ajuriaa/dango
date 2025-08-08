@@ -28,4 +28,9 @@ export function getFileUrl(fileRef) {
 }
 
 // GROQ query for home page data
-export const homePageQuery = `*[_type == "homePage"][0]`
+export const homePageQuery = `*[_type == "homePage"][0]{
+  ...,
+  headerLogo,
+  navigationItems,
+  headerCtaButtonLabel
+}`

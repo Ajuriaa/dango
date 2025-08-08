@@ -31,6 +31,10 @@ export default async function Home() {
     )
   }
 
+  const headerLogoUrl = homeData.headerLogo 
+    ? urlFor(homeData.headerLogo).url() 
+    : null
+
   const shopifyPartnerImageUrl = homeData.shopifyPartnerImage 
     ? urlFor(homeData.shopifyPartnerImage).url() 
     : null
@@ -95,7 +99,11 @@ export default async function Home() {
     <div
       className='flex flex-col justify-between bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600 via-black to-black md:h-[100vh] md:bg-[radial-gradient(ellipse_at_bottom,_hsla(271,100%,53%,1)_0%,_hsla(0,0%,0%,1)_25%)] md:bg-[length:250%_100%] md:bg-center'
     >
-      <Header />
+      <Header 
+        logoImage={headerLogoUrl || undefined}
+        navigationItems={homeData.navigationItems}
+        ctaButtonLabel={homeData.headerCtaButtonLabel}
+      />
       <HeroPanel
         title={homeData.heroTitle}
         subtitle={homeData.heroSubtitle}

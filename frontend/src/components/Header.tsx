@@ -5,42 +5,53 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import logo from '@/assets/logo.webp'
 
-export default function Header() {
+interface HeaderProps {
+  logoImage?: string
+  navigationItems?: string[]
+  ctaButtonLabel?: string
+}
+
+export default function Header({ 
+  logoImage,
+  navigationItems = ['Services', 'Our Work', 'Team', 'Contact'],
+  ctaButtonLabel = 'GET IN TOUCH'
+}: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  
+  // Helper function to convert navigation label to anchor link
+  const getAnchorLink = (label: string) => {
+    return `#${label.toLowerCase().replace(/\s+/g, '-')}`
+  }
   return (
     <header className="bg-black p-4 w-full md:px-20 relative z-10">
       <div className="flex justify-between items-center w-full">
-        <div className="flex items-center">
+        <div className="flex items-center" onClick={() => window.location.href = '/'}>
           <Image
-            src={logo}
+            src={logoImage || logo}
             alt="Dango Logo"
-            className="h-10 md:h-10 w-auto"
+            width={logoImage ? 160 : undefined}
+            height={logoImage ? 40 : undefined}
+            className="h-10 md:h-10 w-auto md:cursor-pointer"
           />
         </div>
         
         <div className="flex items-center space-x-8">
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#services" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
-              Services
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a href="#our-work" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
-              Our Work
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a href="#team" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
-              Team
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a href="#contact" className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group">
-              Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
-            </a>
+            {navigationItems.map((item, index) => (
+              <a 
+                key={index}
+                href={getAnchorLink(item)} 
+                className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group"
+              >
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
+              </a>
+            ))}
           </nav>
 
           <div className="hidden md:block bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 p-[2px] rounded-full !mr-0">
             <a href="#contact" className="w-full h-full bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase flex items-center justify-center">
-              GET IN TOUCH
+              {ctaButtonLabel}
             </a>
           </div>
 
@@ -85,74 +96,26 @@ export default function Header() {
               exit={{ y: -20 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <motion.a 
-                href="#services" 
-                className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={(e) => {
-                  e.preventDefault()
-                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
-                  if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' })
-                    setTimeout(() => setIsMenuOpen(false), 800)
-                  }
-                }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 }}
-              >
-                Services
-              </motion.a>
-              <motion.a 
-                href="#our-work" 
-                className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={(e) => {
-                  e.preventDefault()
-                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
-                  if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' })
-                    setTimeout(() => setIsMenuOpen(false), 800)
-                  }
-                }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.15 }}
-              >
-                Our Work
-              </motion.a>
-              <motion.a 
-                href="#team" 
-                className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={(e) => {
-                  e.preventDefault()
-                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
-                  if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' })
-                    setTimeout(() => setIsMenuOpen(false), 800)
-                  }
-                }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-              >
-                Team
-              </motion.a>
-              <motion.a 
-                href="#contact" 
-                className="text-gray-300 hover:text-white transition-colors py-2"
-                onClick={(e) => {
-                  e.preventDefault()
-                  const target = document.querySelector(e.currentTarget.getAttribute('href')!)
-                  if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' })
-                    setTimeout(() => setIsMenuOpen(false), 800)
-                  }
-                }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.25 }}
-              >
-                Contact
-              </motion.a>
+              {navigationItems.map((item, index) => (
+                <motion.a 
+                  key={index}
+                  href={getAnchorLink(item)} 
+                  className="text-gray-300 hover:text-white transition-colors py-2"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const target = document.querySelector(e.currentTarget.getAttribute('href')!)
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth' })
+                      setTimeout(() => setIsMenuOpen(false), 800)
+                    }
+                  }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 + (index * 0.05) }}
+                >
+                  {item}
+                </motion.a>
+              ))}
               <motion.div 
                 className="mt-4"
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -171,7 +134,7 @@ export default function Header() {
                   }
                 }}
                 >
-                  GET IN TOUCH
+                  {ctaButtonLabel}
                 </a>
               </motion.div>
             </motion.nav>

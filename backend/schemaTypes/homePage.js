@@ -3,6 +3,7 @@ export default {
   title: 'Home Page',
   type: 'document',
   fieldsets: [
+    { name: 'header', title: 'Header Section' },
     { name: 'hero', title: 'Hero Section' },
     { name: 'stats', title: 'Stats Section' },
     { name: 'highlights', title: 'Highlights Section' },
@@ -18,6 +19,37 @@ export default {
       type: 'string',
       description: 'Title of the page for internal reference',
       validation: Rule => Rule.required(),
+    },
+    // Header Section Fields
+    {
+      name: 'headerLogo',
+      title: 'Header Logo',
+      type: 'image',
+      fieldset: 'header',
+      options: {
+        hotspot: true
+      },
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'headerCtaButtonLabel',
+      title: 'Header CTA Button Label',
+      type: 'string',
+      fieldset: 'header',
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'navigationItems',
+      title: 'Header Navigation Items',
+      type: 'array',
+      fieldset: 'header',
+      description: 'Navigation labels for the header menu (e.g., Services, Our Work, Team, Contact)',
+      of: [
+        {
+          type: 'string'
+        }
+      ],
+      validation: Rule => Rule.required().min(1)
     },
     // Hero Section Fields
     {
@@ -62,9 +94,10 @@ export default {
     },
     {
       name: 'scrollItems',
-      title: 'Scroll Items',
+      title: 'Horizontal Scroll Items',
       type: 'array',
       fieldset: 'hero',
+      description: 'Items that appear in the horizontal scrolling section',
       of: [
         {
           type: 'string'
