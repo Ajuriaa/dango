@@ -80,13 +80,19 @@ export default function OurWorksSection({ title, works }: OurWorksSectionProps) 
                   duration: 0.6,
                   ease: "easeOut"
                 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -8,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
+                className="md:cursor-pointer"
               >
                 <Image
                   src={urlFor(work.image).url()}
                   alt={work.alt}
                   width={width}
                   height={height}
-                  className="w-full h-auto"
+                  className="w-full h-auto rounded-lg md:shadow-lg md:hover:shadow-xl transition-shadow duration-200"
                 />
               </motion.div>
             )
