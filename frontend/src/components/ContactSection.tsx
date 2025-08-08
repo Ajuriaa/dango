@@ -1,16 +1,32 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 interface FormField {
   fieldName: string
   required?: boolean
 }
 
+interface BlogPost {
+  name: string
+  image: string
+  link: string
+}
+
+interface ViewAll {
+  label: string
+  link: string
+}
+
 interface ContactSectionProps {
   title?: string
   formFields?: FormField[]
   buttonLabel?: string
+  blogTitle?: string
+  blogPosts?: BlogPost[]
+  blogViewAll?: ViewAll
 }
 
 export default function ContactSection({ 
@@ -21,7 +37,10 @@ export default function ContactSection({
     { fieldName: 'email', required: true },
     { fieldName: 'message', required: true }
   ],
-  buttonLabel = "GET IN TOUCH"
+  buttonLabel = "GET IN TOUCH",
+  blogTitle,
+  blogPosts = [],
+  blogViewAll
 }: ContactSectionProps) {
   // Initialize form data based on dynamic fields
   const initialFormData = formFields.reduce((acc, field) => {
@@ -65,6 +84,66 @@ export default function ContactSection({
       }}
       className="py-16 md:py-24"
     >
+      {/* Blog Section */}
+      {blogTitle && blogPosts.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 md:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="flex items-end justify-between mb-8">
+              <h2 className="text-[24px] md:text-[36px] text-white text-left">
+                {blogTitle}
+              </h2>
+              {blogViewAll && (
+                <button 
+                  onClick={() => window.open(blogViewAll.link, '_blank', 'noopener,noreferrer')}
+                  className="text-white underline underline-offset-4 hover:text-gray-300 transition-colors duration-200"
+                >
+                  {blogViewAll.label}
+                </button>
+              )}
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogPosts.slice(0, typeof window !== 'undefined' && window.innerWidth < 768 ? 2 : 3).map((post, index) => (
+                <motion.div
+                  key={index}
+                  className="rounded-xl overflow-hidden transition-all duration-300 cursor-pointer"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -5,
+                    transition: { duration: 0.2 }
+                  }}
+                  onClick={() => window.open(post.link, '_blank', 'noopener,noreferrer')}
+                >
+                  <div className="relative h-60 w-full">
+                    <Image
+                      src={post.image}
+                      alt={post.name}
+                      fill
+                      className="object-cover rounded-2xl"
+                    />
+                  </div>
+                  <div className='py-4'>
+                    <h3 className="poppins-medium text-[16px] text-white leading-tight text-left">
+                      {post.name}
+                    </h3>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Contact Form Section */}
       <div className="max-w-4xl mx-auto px-10 sm:px-6 lg:px-8">
         <div className="text-left mb-10">
           <h2 className="text-[30px] text-white">

@@ -74,7 +74,8 @@ export default async function Home() {
     works: homeData.works?.map((work: any) => ({
       ...work,
       image: work.image ? urlFor(work.image).url() : null
-    }))
+    })),
+    viewAll: homeData.ourWorksViewAll
   } : null
 
   // Process our team data to convert images to URLs
@@ -101,7 +102,13 @@ export default async function Home() {
   const processedContactData = {
     title: homeData.contactTitle,
     formFields: homeData.contactFormFields,
-    buttonLabel: homeData.contactButtonLabel
+    buttonLabel: homeData.contactButtonLabel,
+    blogTitle: homeData.blogTitle,
+    blogPosts: homeData.blogPosts?.map((post: any) => ({
+      ...post,
+      image: post.image ? urlFor(post.image).url() : null
+    })),
+    blogViewAll: homeData.blogViewAll
   }
 
   return (
@@ -161,6 +168,7 @@ export default async function Home() {
         <OurWorksSection
           title={processedOurWorksData.title}
           works={processedOurWorksData.works}
+          viewAll={processedOurWorksData.viewAll}
         />
       )}
       
@@ -176,6 +184,9 @@ export default async function Home() {
         title={processedContactData.title}
         formFields={processedContactData.formFields}
         buttonLabel={processedContactData.buttonLabel}
+        blogTitle={processedContactData.blogTitle}
+        blogPosts={processedContactData.blogPosts}
+        blogViewAll={processedContactData.blogViewAll}
       />
     </div>
   )

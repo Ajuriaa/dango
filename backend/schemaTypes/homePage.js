@@ -11,6 +11,7 @@ export default {
     { name: 'partners', title: 'Partners Section' },
     { name: 'ourTeam', title: 'Our Team Section' },
     { name: 'ourWorks', title: 'Our Works Section' },
+    { name: 'blog', title: 'Blog Section' },
     { name: 'contact', title: 'Contact Section' },
   ],
   fields: [
@@ -531,6 +532,140 @@ export default {
         }
       ],
       validation: Rule => Rule.required().min(1)
+    },
+    {
+      name: 'ourWorksViewAll',
+      title: 'View All Projects Link',
+      type: 'object',
+      fieldset: 'ourWorks',
+      fields: [
+        {
+          name: 'label',
+          title: 'Link Label',
+          type: 'string',
+          description: 'Text shown for the link (e.g., "View All Projects")',
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'link',
+          title: 'Link URL',
+          type: 'url',
+          description: 'URL to the full projects page',
+          validation: Rule => Rule.required().uri({
+            scheme: ['http', 'https']
+          })
+        }
+      ],
+      preview: {
+        select: {
+          title: 'label',
+          subtitle: 'link'
+        },
+        prepare({title, subtitle}) {
+          return {
+            title: title,
+            subtitle: subtitle
+          }
+        }
+      }
+    },
+    // Blog Section Fields
+    {
+      name: 'blogTitle',
+      title: 'Blog Section Title',
+      type: 'string',
+      fieldset: 'blog',
+      description: 'Main title for the blog section',
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'blogPosts',
+      title: 'Blog Posts',
+      type: 'array',
+      fieldset: 'blog',
+      description: 'Collection of blog posts',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'name',
+              title: 'Post Title',
+              type: 'string',
+              validation: Rule => Rule.required()
+            },
+            {
+              name: 'image',
+              title: 'Post Image',
+              type: 'image',
+              options: {
+                hotspot: true
+              },
+              validation: Rule => Rule.required()
+            },
+            {
+              name: 'link',
+              title: 'Post Link',
+              type: 'url',
+              description: 'URL to the full blog post',
+              validation: Rule => Rule.required().uri({
+                scheme: ['http', 'https']
+              })
+            }
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              subtitle: 'link',
+              media: 'image'
+            },
+            prepare({title, subtitle, media}) {
+              return {
+                title: title,
+                subtitle: subtitle,
+                media: media
+              }
+            }
+          }
+        }
+      ],
+      validation: Rule => Rule.min(1)
+    },
+    {
+      name: 'blogViewAll',
+      title: 'View All Articles Link',
+      type: 'object',
+      fieldset: 'blog',
+      fields: [
+        {
+          name: 'label',
+          title: 'Link Label',
+          type: 'string',
+          description: 'Text shown for the link (e.g., "View All Articles")',
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'link',
+          title: 'Link URL',
+          type: 'url',
+          description: 'URL to the full articles page',
+          validation: Rule => Rule.required().uri({
+            scheme: ['http', 'https']
+          })
+        }
+      ],
+      preview: {
+        select: {
+          title: 'label',
+          subtitle: 'link'
+        },
+        prepare({title, subtitle}) {
+          return {
+            title: title,
+            subtitle: subtitle
+          }
+        }
+      }
     },
     // Contact Section Fields
     {
