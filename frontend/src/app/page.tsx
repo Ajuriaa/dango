@@ -97,6 +97,13 @@ export default async function Home() {
     }))
   } : null
 
+  // Process contact section data
+  const processedContactData = {
+    title: homeData.contactTitle,
+    formFields: homeData.contactFormFields,
+    buttonLabel: homeData.contactButtonLabel
+  }
+
   return (
     <div>
     <div
@@ -165,7 +172,11 @@ export default async function Home() {
         />
       )}
       
-      <ContactSection />
+      <ContactSection 
+        title={processedContactData.title}
+        formFields={processedContactData.formFields}
+        buttonLabel={processedContactData.buttonLabel}
+      />
     </div>
   )
 }

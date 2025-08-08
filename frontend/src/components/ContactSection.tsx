@@ -2,13 +2,44 @@
 
 import { useState } from 'react'
 
-export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    email: '',
-    message: ''
-  })
+interface FormField {
+  fieldName: string
+  required?: boolean
+}
+
+interface ContactSectionProps {
+  title?: string
+  formFields?: FormField[]
+  buttonLabel?: string
+}
+
+export default function ContactSection({ 
+  title,
+  formFields = [
+    { fieldName: 'name', required: true },
+    { fieldName: 'company', required: false },
+    { fieldName: 'email', required: true },
+    { fieldName: 'message', required: true }
+  ],
+  buttonLabel = "GET IN TOUCH"
+}: ContactSectionProps) {
+  // Initialize form data based on dynamic fields
+  const initialFormData = formFields.reduce((acc, field) => {
+    acc[field.fieldName] = ''
+    return acc
+  }, {} as Record<string, string>)
+  
+  const [formData, setFormData] = useState(initialFormData)
+  
+  // Generate placeholder text from field name
+  const generatePlaceholder = (fieldName: string, required: boolean = false) => {
+    const capitalized = fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+    if (required) {
+      return `${capitalized} *`
+    } else {
+      return `${capitalized} (optional)`
+    }
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -25,86 +56,85 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Ready to level up your store? Let's chat.
+    <section 
+      id="contact" 
+      style={{
+        backgroundImage: 'radial-gradient(ellipse at bottom, hsla(271, 100%, 53%, 1) 0%, hsla(0, 0%, 0%, 1) 40%)',
+        backgroundSize: '250% 100%',
+        backgroundPosition: 'center'
+      }}
+      className="py-16 md:py-24"
+    >
+      <div className="max-w-4xl mx-auto px-10 sm:px-6 lg:px-8">
+        <div className="text-left mb-10">
+          <h2 className="text-[30px] text-white">
+            {title}
           </h2>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="name" className="block text-white text-sm font-medium mb-2">
-                Name*
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                className="w-full bg-transparent border-b border-gray-400 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-purple-400 transition-colors duration-200"
-                placeholder=""
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="company" className="block text-white text-sm font-medium mb-2">
-                Company (optional)
-              </label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                value={formData.company}
-                onChange={handleInputChange}
-                className="w-full bg-transparent border-b border-gray-400 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-purple-400 transition-colors duration-200"
-                placeholder=""
-              />
-            </div>
-          </div>
-          
-          <div>
-            <label htmlFor="email" className="block text-white text-sm font-medium mb-2">
-              Email*
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-              className="w-full bg-transparent border-b border-gray-400 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-purple-400 transition-colors duration-200"
-              placeholder=""
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="message" className="block text-white text-sm font-medium mb-2">
-              Your message*
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              required
-              rows={4}
-              className="w-full bg-transparent border-b border-gray-400 text-white placeholder-gray-400 py-3 px-0 focus:outline-none focus:border-purple-400 transition-colors duration-200 resize-none"
-              placeholder=""
-            />
-          </div>
+          {/* Dynamic form fields */}
+          {formFields.map((field, index) => {
+            // First 2 fields side by side on desktop, rest full width
+            if (index === 0) {
+              return (
+                <div key="first-two" className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <input
+                      type="text"
+                      id={formFields[0].fieldName}
+                      name={formFields[0].fieldName}
+                      value={formData[formFields[0].fieldName] || ''}
+                      onChange={handleInputChange}
+                      required={formFields[0].required}
+                      placeholder={generatePlaceholder(formFields[0].fieldName, formFields[0].required)}
+                      className="w-full bg-transparent border-b border-white text-white placeholder-white py-3 px-0 focus:outline-none focus:border-purple-400 transition-colors duration-200"
+                    />
+                  </div>
+                  {formFields[1] && (
+                    <div>
+                      <input
+                        type="text"
+                        id={formFields[1].fieldName}
+                        name={formFields[1].fieldName}
+                        value={formData[formFields[1].fieldName] || ''}
+                        onChange={handleInputChange}
+                        required={formFields[1].required}
+                        placeholder={generatePlaceholder(formFields[1].fieldName, formFields[1].required)}
+                        className="w-full bg-transparent border-b border-white text-white placeholder-white py-3 px-0 focus:outline-none focus:border-purple-400 transition-colors duration-200"
+                      />
+                    </div>
+                  )}
+                </div>
+              )
+            } else if (index === 1) {
+              // Skip index 1 as it's handled above with index 0
+              return null
+            } else {
+              // Rest of fields full width
+              return (
+                <div key={field.fieldName}>
+                  <input
+                    type="text"
+                    id={field.fieldName}
+                    name={field.fieldName}
+                    value={formData[field.fieldName] || ''}
+                    onChange={handleInputChange}
+                    required={field.required}
+                    placeholder={generatePlaceholder(field.fieldName, field.required)}
+                    className="w-full bg-transparent border-b border-white text-white placeholder-white py-3 px-0 focus:outline-none focus:border-purple-400 transition-colors duration-200"
+                  />
+                </div>
+              )
+            }
+          })}
           
           <div className="pt-6">
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
             >
-              GET IN TOUCH
+              {buttonLabel}
             </button>
           </div>
         </form>

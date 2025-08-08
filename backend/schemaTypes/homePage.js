@@ -11,6 +11,7 @@ export default {
     { name: 'partners', title: 'Partners Section' },
     { name: 'ourTeam', title: 'Our Team Section' },
     { name: 'ourWorks', title: 'Our Works Section' },
+    { name: 'contact', title: 'Contact Section' },
   ],
   fields: [
     {
@@ -530,6 +531,66 @@ export default {
         }
       ],
       validation: Rule => Rule.required().min(1)
+    },
+    // Contact Section Fields
+    {
+      name: 'contactTitle',
+      title: 'Contact Section Title',
+      type: 'string',
+      fieldset: 'contact',
+      description: 'Main title for the contact section (e.g., "Ready to level up your store? Let\'s chat.")',
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'contactFormFields',
+      title: 'Contact Form Fields',
+      type: 'array',
+      fieldset: 'contact',
+      description: 'Dynamic form fields with labels and types',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'fieldName',
+              title: 'Field Name',
+              type: 'string',
+              description: 'Field name (e.g., "name", "email", "company", "message")',
+              validation: Rule => Rule.required()
+            },
+            {
+              name: 'required',
+              title: 'Required Field',
+              type: 'boolean',
+              description: 'Whether this field is required',
+              initialValue: false
+            }
+          ],
+          preview: {
+            select: {
+              fieldName: 'fieldName',
+              required: 'required'
+            },
+            prepare({fieldName, required}) {
+              const capitalizedName = fieldName ? fieldName.charAt(0).toUpperCase() + fieldName.slice(1) : ''
+              const suffix = required ? ' *' : ' (optional)'
+              return {
+                title: `${capitalizedName}${suffix}`,
+                subtitle: `Field: ${fieldName}`
+              }
+            }
+          }
+        }
+      ],
+      validation: Rule => Rule.required().min(1)
+    },
+    {
+      name: 'contactButtonLabel',
+      title: 'Submit Button Label',
+      type: 'string',
+      fieldset: 'contact',
+      description: 'Label for the submit button',
+      validation: Rule => Rule.required()
     },
   ],
   preview: {
