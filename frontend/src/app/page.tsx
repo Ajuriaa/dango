@@ -89,6 +89,7 @@ export default async function Home() {
 
   // Process partners data to convert images to URLs
   const processedPartnersData = homeData.partners ? {
+    title: homeData.partnersTitle,
     label: homeData.partnersLabel,
     partners: homeData.partners?.map((partner: any) => ({
       ...partner,
@@ -143,6 +144,7 @@ export default async function Home() {
       
       {processedPartnersData && (
         <PartnersSection
+          title={processedPartnersData.title}
           label={processedPartnersData.label}
           partners={processedPartnersData.partners}
         />

@@ -372,6 +372,14 @@ export default {
     },
     // Partners Section Fields
     {
+      name: 'partnersTitle',
+      title: 'Section Title',
+      type: 'string',
+      fieldset: 'partners',
+      description: 'Main title that appears above the section label',
+      validation: Rule => Rule.required()
+    },
+    {
       name: 'partnersLabel',
       title: 'Section Label',
       type: 'string',
@@ -395,15 +403,33 @@ export default {
                 hotspot: true
               },
               validation: Rule => Rule.required()
+            },
+            {
+              name: 'link',
+              title: 'Partner Website Link',
+              type: 'url',
+              description: 'URL to the partner website (opens in new tab when clicked)',
+              validation: Rule => Rule.uri({
+                scheme: ['http', 'https']
+              })
+            },
+            {
+              name: 'name',
+              title: 'Partner Name',
+              type: 'string',
+              description: 'Partner name for accessibility and preview'
             }
           ],
           preview: {
             select: {
+              name: 'name',
+              link: 'link',
               media: 'image'
             },
-            prepare({media}) {
+            prepare({name, link, media}) {
               return {
-                title: 'Partner Logo',
+                title: name || 'Partner Logo',
+                subtitle: link || 'No website link',
                 media: media
               }
             }
