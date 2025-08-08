@@ -70,7 +70,7 @@ export default function HighlightsSection({
   if (!title && !workCards.length) return null
 
   return (
-    <section className="w-full bg-white pb-8">
+    <section id="highlights" className="w-full bg-white pb-8">
       <div className="pl-4 md:pl-20 mx-auto">
         {/* Work Cards */}
         {workCards.length > 0 && (

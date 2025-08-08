@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import logo from '@/assets/logo.webp'
 
@@ -17,13 +17,48 @@ export default function Header({
   ctaButtonLabel = 'GET IN TOUCH'
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [currentSection, setCurrentSection] = useState('hero')
+  const [isScrolled, setIsScrolled] = useState(false)
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      setIsScrolled(scrollPosition > 50)
+      
+      // Define section positions
+      const sections = ['hero', 'stats', 'highlights', 'services', 'partners', 'our-work', 'team', 'contact']
+      
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i])
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          if (rect.top <= 100) {
+            setCurrentSection(sections[i])
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Check initial position
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+  
+  // Determine background color based on current section
+  const isDarkSection = currentSection === 'hero' || currentSection === 'services' || currentSection === 'contact'
+  const headerBg = isDarkSection ? 'bg-black' : 'bg-white'
+  const textColor = isDarkSection ? 'text-white' : 'text-black'
+  const hoverTextColor = isDarkSection ? 'hover:text-purple-400' : 'hover:text-purple-600'
+  const menuButtonColor = isDarkSection ? 'text-white' : 'text-black'
   
   // Helper function to convert navigation label to anchor link
   const getAnchorLink = (label: string) => {
     return `#${label.toLowerCase().replace(/\s+/g, '-')}`
   }
   return (
-    <header className="bg-black p-4 w-full md:px-20 relative z-10">
+    <header className={`${headerBg} p-4 w-full md:px-20 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg backdrop-blur-sm' : ''}`}>
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center" onClick={() => window.location.href = '/'}>
           <Image
@@ -31,7 +66,7 @@ export default function Header({
             alt="Dango Logo"
             width={logoImage ? 160 : undefined}
             height={logoImage ? 40 : undefined}
-            className="h-10 md:h-10 w-auto md:cursor-pointer"
+            className={`h-10 md:h-10 w-auto md:cursor-pointer transition-all duration-300 ${!isDarkSection ? 'invert' : ''}`}
           />
         </div>
         
@@ -41,7 +76,7 @@ export default function Header({
               <a 
                 key={index}
                 href={getAnchorLink(item)} 
-                className="relative text-gray-300 hover:text-purple-400 transition-colors text-sm group"
+                className={`relative ${isDarkSection ? 'text-gray-300' : 'text-gray-700'} ${hoverTextColor} transition-colors text-sm group`}
               >
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-800 to-fuchsia-600 transition-all duration-300 group-hover:w-full"></span>
@@ -50,14 +85,14 @@ export default function Header({
           </nav>
 
           <div className="hidden md:block bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 p-[2px] rounded-full !mr-0">
-            <a href="#contact" className="w-full h-full bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase flex items-center justify-center">
+            <a href="#contact" className={`w-full h-full ${headerBg} ${textColor} px-6 py-2 rounded-full text-sm font-medium hover:bg-purple-500/10 transition-colors uppercase flex items-center justify-center`}>
               {ctaButtonLabel}
             </a>
           </div>
 
           
           <button 
-            className="md:hidden p-2 text-white"
+            className={`md:hidden p-2 ${menuButtonColor}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <motion.svg 
@@ -83,7 +118,7 @@ export default function Header({
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="md:hidden absolute top-full left-0 w-full bg-black border-t border-gray-800 z-50 overflow-hidden"
+            className={`md:hidden absolute top-full left-0 w-full ${headerBg} border-t ${isDarkSection ? 'border-gray-800' : 'border-gray-200'} z-50 overflow-hidden`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -100,7 +135,7 @@ export default function Header({
                 <motion.a 
                   key={index}
                   href={getAnchorLink(item)} 
-                  className="text-gray-300 hover:text-white transition-colors py-2"
+                  className={`${isDarkSection ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-black'} transition-colors py-2`}
                   onClick={(e) => {
                     e.preventDefault()
                     const target = document.querySelector(e.currentTarget.getAttribute('href')!)

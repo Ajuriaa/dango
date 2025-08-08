@@ -53,7 +53,7 @@ export default function StatsSection({
   }
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
+    <section id="stats" className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
       <div className="max-w-5xl mx-auto">
         {/* Title and Description */}
         <motion.div 

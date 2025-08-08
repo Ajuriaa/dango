@@ -55,7 +55,7 @@ export default function PartnersSection({
   }
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
+    <section id="partners" className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
       <div className="md:max-w-6xl mx-auto text-center flex flex-col items-center">
         {/* Section Title */}
         {title && (
