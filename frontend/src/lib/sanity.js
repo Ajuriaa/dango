@@ -32,5 +32,6 @@ export const homePageQuery = `*[_type == "homePage"][0]{
   ...,
   headerLogo,
   navigationItems,
-  headerCtaButtonLabel
+  headerCtaButtonLabel,
+  highlightsLabel
 }`

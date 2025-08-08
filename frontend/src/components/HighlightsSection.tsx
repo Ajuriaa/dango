@@ -12,11 +12,13 @@ interface WorkCard {
 }
 
 interface HighlightsSectionProps {
+  label?: string
   title?: string
   workCards?: WorkCard[]
 }
 
 export default function HighlightsSection({ 
+  label,
   title, 
   workCards = [] 
 }: HighlightsSectionProps) {
@@ -78,9 +80,11 @@ export default function HighlightsSection({
               {/* Title Section */}
               {title && (
                 <div className="flex-shrink-0 md:w-[320px]">
-                  <p className="poppins-regular text-gray-900 md:text-[16px] inline-block md:bg-purple-300 md:px-1">
-                    Highlights
-                  </p>
+                  {label && (
+                    <p className="poppins-regular text-gray-900 md:text-[16px] inline-block md:bg-purple-300 md:px-1">
+                      {label}
+                    </p>
+                  )}
                   <h2 className="text-3xl md:text-[48px] lg:text-6xl font-normal text-gray-900 leading-tight sticky top-8">
                     {title}
                   </h2>

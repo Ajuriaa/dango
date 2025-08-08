@@ -160,6 +160,14 @@ export default {
     },
     // Highlights Section Fields
     {
+      name: 'highlightsLabel',
+      title: 'Section Label',
+      type: 'string',
+      fieldset: 'highlights',
+      description: 'The small label that appears above the title (e.g., "Highlights")',
+      validation: Rule => Rule.required()
+    },
+    {
       name: 'highlightsTitle',
       title: 'Section Title',
       type: 'string',

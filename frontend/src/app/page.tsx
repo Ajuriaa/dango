@@ -45,6 +45,7 @@ export default async function Home() {
 
   // Process highlights data to convert images to URLs
   const processedHighlightsData = homeData.workCards ? {
+    label: homeData.highlightsLabel,
     title: homeData.highlightsTitle,
     workCards: homeData.workCards?.map((card: any) => ({
       ...card,
@@ -124,6 +125,7 @@ export default async function Home() {
       
       {processedHighlightsData && (
         <HighlightsSection
+          label={processedHighlightsData.label}
           title={processedHighlightsData.title}
           workCards={processedHighlightsData.workCards}
         />
