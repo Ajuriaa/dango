@@ -60,6 +60,7 @@ export default async function Home() {
       ...service,
       image: service.image ? urlFor(service.image).url() : null
     })),
+    testimonialsSectionLabel: homeData.testimonialsSectionLabel,
     testimonialsLabel: homeData.testimonialsLabel,
     testimonials: homeData.testimonials?.map((testimonial: any) => ({
       ...testimonial,
@@ -134,6 +135,7 @@ export default async function Home() {
       {processedServicesData && (
         <ServicesSection
           services={processedServicesData.services}
+          testimonialsSectionLabel={processedServicesData.testimonialsSectionLabel}
           testimonialsLabel={processedServicesData.testimonialsLabel}
           testimonials={processedServicesData.testimonials}
         />

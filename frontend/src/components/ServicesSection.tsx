@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -19,16 +19,63 @@ interface Testimonial {
 
 interface ServicesSectionProps {
   services?: Service[]
+  testimonialsSectionLabel?: string
   testimonialsLabel?: string
   testimonials?: Testimonial[]
 }
 
 export default function ServicesSection({ 
   services = [], 
+  testimonialsSectionLabel,
   testimonialsLabel,
   testimonials = [] 
 }: ServicesSectionProps) {
   const [activeService, setActiveService] = useState(0)
+  
+  // Testimonials scroll functionality
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [showLeftArrow, setShowLeftArrow] = useState(false)
+  const [showRightArrow, setShowRightArrow] = useState(true)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  // Testimonial scroll calculations
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  const cardWidth = isMobile ? 288 : 400 // w-72 = 288px, w-[400px] = 400px
+  const cardGap = 24 // space-x-6 = 1.5rem = 24px
+  const cardWithGap = cardWidth + cardGap
+  
+  // Calculate how many cards can fit in the container (75% of lg grid)
+  const containerWidth = typeof window !== 'undefined' ? 
+    (isMobile ? window.innerWidth - 32 : Math.max(600, (window.innerWidth * 0.75) - 160)) : 800 // fallback
+  const cardsPerView = Math.floor(containerWidth / cardWithGap)
+  const maxScrollIndex = Math.max(0, testimonials.length - cardsPerView)
+
+  const scrollToCard = (index: number) => {
+    if (scrollRef.current && index >= 0 && index <= maxScrollIndex) {
+      const scrollPosition = index * cardWithGap
+      scrollRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' })
+      setCurrentIndex(index)
+    }
+  }
+
+  const scrollLeft = () => {
+    scrollToCard(currentIndex - 1)
+  }
+
+  const scrollRight = () => {
+    scrollToCard(currentIndex + 1)
+  }
+
+  // Update arrow visibility based on current position
+  const updateArrowVisibility = () => {
+    setShowLeftArrow(currentIndex > 0)
+    setShowRightArrow(currentIndex < maxScrollIndex)
+  }
+
+  // Initialize and update arrow visibility
+  useEffect(() => {
+    updateArrowVisibility()
+  }, [currentIndex, testimonials.length, maxScrollIndex])
 
   if (!services.length) return null
 
@@ -204,14 +251,14 @@ export default function ServicesSection({
       {/* Testimonials Section */}
       {testimonials.length > 0 && (
           <motion.div 
-            className="w-full md:px-20 mx-auto overflow-hidden"
+            className="w-full px-4 md:px-20 mx-auto overflow-hidden"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-[35%_65%] gap-12 lg:gap-16">
-              
+            <div className="grid grid-cols-1 lg:grid-cols-[25%_75%] gap-12 lg:gap-16">
+
               {/* Left Column - Testimonials Header */}
               <motion.div 
                 className="space-y-8"
@@ -220,12 +267,14 @@ export default function ServicesSection({
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <div className="text-sm text-gray-400 uppercase tracking-wider">
-                  Testimonials
-                </div>
+                {testimonialsSectionLabel && (
+                  <div className="poppins-regular md:text-[16px] text-white tracking-wider mb-4">
+                    {testimonialsSectionLabel}
+                  </div>
+                )}
                 
                 {testimonialsLabel && (
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                  <h2 className="md:max-w-md poppins-medium md:text-[48px] font-semibold text-white leading-tight">
                     {testimonialsLabel}
                   </h2>
                 )}
@@ -239,27 +288,40 @@ export default function ServicesSection({
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <div className="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide px-4 md:px-0">
-                  {testimonials.map((testimonial, index) => (
+                <div className="relative overflow-hidden py-6">
+                  <div 
+                    ref={scrollRef}
+                    className="flex space-x-6 overflow-x-scroll pb-6 px-4 md:px-6 pt-6"
+                    style={{ 
+                      scrollbarWidth: 'none', 
+                      msOverflowStyle: 'none'
+                    }}
+                  >
+                    {testimonials.map((testimonial, index) => (
                     <motion.div 
                       key={index} 
-                      className="flex-shrink-0 w-72 md:w-80 bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8"
-                      initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                      className="flex-shrink-0 w-72 md:w-[400px] md:h-[360px] bg-black rounded-2xl p-6 md:p-8 flex flex-col justify-center"
+                      initial={{ opacity: 0, scale: 0.95, y: 20 }}
                       whileInView={{ opacity: 1, scale: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ 
-                        duration: 0.5, 
-                        delay: index * 0.1 + 0.6,
+                        duration: 0.3, 
+                        delay: index * 0.05 + 0.2,
                         ease: "easeOut"
                       }}
                       whileHover={{ 
                         scale: 1.05,
                         y: -10,
-                        transition: { duration: 0.2 }
+                        transition: { duration: 0.15, ease: "easeOut" }
+                      }}
+                      animate={{ 
+                        scale: 1,
+                        y: 0,
+                        transition: { duration: 0.15, ease: "easeOut" }
                       }}
                     >
                       {/* Testimonial Quote */}
-                      <p className="text-gray-200 leading-relaxed mb-8 text-lg">
+                      <p className="poppins-regular text-white leading-relaxed mb-8 md:text-[16px]">
                         "{testimonial.comment}"
                       </p>
                       
@@ -280,23 +342,30 @@ export default function ServicesSection({
                       </div>
                     </motion.div>
                   ))}
-                </div>
-                
-                {/* Scroll Arrow */}
-                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 -translate-x-4">
-                  <motion.button 
-                    className="w-12 h-12 bg-purple-600 hover:bg-purple-700 rounded-full flex items-center justify-center transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.8 }}
-                  >
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </motion.button>
+                  </div>
+                  
+                  {/* Navigation Arrows */}
+                  {showLeftArrow && (
+                    <button 
+                      onClick={scrollLeft}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white hover:bg-purple-50 rounded-full shadow-lg flex items-center justify-center transition-colors duration-200 group z-10"
+                    >
+                      <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                  )}
+                  
+                  {showRightArrow && (
+                    <button 
+                      onClick={scrollRight}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white hover:bg-purple-50 rounded-full shadow-lg flex items-center justify-center transition-colors duration-200 group z-10"
+                    >
+                      <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </motion.div>
               

@@ -299,6 +299,14 @@ export default {
       validation: Rule => Rule.required().min(1)
     },
     {
+      name: 'testimonialsSectionLabel',
+      title: 'Testimonials Section Label',
+      type: 'string',
+      fieldset: 'services',
+      description: 'Small uppercase label that appears above testimonials title (e.g., "Testimonials")',
+      validation: Rule => Rule.required()
+    },
+    {
       name: 'testimonialsLabel',
       title: 'Testimonials Label',
       type: 'string',
