@@ -50,7 +50,7 @@ export default function HeroPanel({
           >
             {title && (
               <motion.h1 
-                className="text-[36px] md:text-[clamp(48px,5vw,80px)] poppins-medium text-white leading-[1.1]"
+                className="text-[36px] md:text-[clamp(24px,5vw,80px)] poppins-medium text-white leading-[1.1]"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
@@ -107,7 +107,7 @@ export default function HeroPanel({
             )}
           </motion.div>
           <motion.div 
-            className="order-3 md:order-2 relative -mx-4 md:mx-0 h-full"
+            className="order-3 md:order-2 relative -mx-4 md:mx-0 h-full md:flex md:items-center"
             initial="hidden"
             animate="visible"
             variants={imageVariants}
@@ -128,7 +128,7 @@ export default function HeroPanel({
                 muted
                 loop
                 playsInline
-                className="rounded-none md:rounded-lg object-cover w-full h-full md:max-w-[700px] md:aspect-square"
+                className="rounded-none md:rounded-lg object-cover w-full h-full md:object-contain md:h-auto md:max-w-[700px]"
                 poster=""
               />
             )}
