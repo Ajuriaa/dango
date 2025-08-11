@@ -27,8 +27,8 @@ export default function HorizontalScroll({ items = [] }: HorizontalScrollProps) 
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="flex animate-scroll whitespace-nowrap">
-        {/* Triple items for seamless infinite scroll */}
-        {[...scrollItems, ...scrollItems, ...scrollItems].map((item, index) => (
+        {/* Multiple repetitions for ultra-wide screens */}
+        {[...scrollItems, ...scrollItems, ...scrollItems, ...scrollItems, ...scrollItems, ...scrollItems].map((item, index) => (
           <motion.div 
             key={index} 
             className="flex items-center flex-shrink-0"
@@ -55,7 +55,7 @@ export default function HorizontalScroll({ items = [] }: HorizontalScrollProps) 
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.333%);
+            transform: translateX(-16.667%);
           }
         }
         

@@ -115,7 +115,7 @@ export default async function Home() {
     <div>
     <div
       id="hero"
-      className='flex flex-col justify-between bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600 via-black to-black md:h-[100vh] md:bg-[radial-gradient(ellipse_at_bottom,_hsla(271,100%,53%,1)_0%,_hsla(0,0%,0%,1)_25%)] md:bg-[length:250%_100%] md:bg-center pt-20'
+      className='flex flex-col justify-between bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600 via-black to-black md:h-[min(100vh,1080px)] md:bg-[radial-gradient(ellipse_at_bottom,_hsla(271,100%,53%,1)_0%,_hsla(0,0%,0%,1)_25%)] md:bg-[length:250%_100%] md:bg-center pt-20'
     >
       <Header 
         logoImage={headerLogoUrl || undefined}

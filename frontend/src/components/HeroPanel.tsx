@@ -37,7 +37,7 @@ export default function HeroPanel({
 
   return (
     <section className="w-full pt-8 md:p-0 px-4 relative">
-        <div className="flex flex-col md:grid md:grid-cols-2 md:justify-items-end gap-12 md:gap-16 md:items-center md:px-20">
+        <div className="flex flex-col md:grid md:grid-cols-2 md:justify-items-end gap-12 md:gap-16 md:items-center md:px-20 md:max-w-[1800px] md:mx-auto">
           <motion.div 
             className="space-y-8 md:space-y-10 order-1 md:order-1"
             initial="hidden"
@@ -50,7 +50,7 @@ export default function HeroPanel({
           >
             {title && (
               <motion.h1 
-                className="text-[36px] md:text-[64px] poppins-medium text-white leading-[1.1]"
+                className="text-[36px] md:text-[clamp(48px,5vw,80px)] poppins-medium text-white leading-[1.1]"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
@@ -61,7 +61,7 @@ export default function HeroPanel({
             
             {subtitle && (
               <motion.p 
-                className="text-[16px] md:text-[20px] text-gray-300 leading-relaxed poppins-medium"
+                className="text-[16px] md:text-[clamp(18px,2.5vw,28px)] text-gray-300 leading-relaxed poppins-medium"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -72,7 +72,7 @@ export default function HeroPanel({
             
             {mainButtonLabel && (
               <motion.button 
-                className="cursor-pointer bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 text-white poppins-semibold text-[14px] md:text-[16px] px-6 py-3 rounded-full"
+                className="cursor-pointer bg-gradient-to-r from-violet-800 via-fuchsia-700 to-fuchsia-600 text-white poppins-semibold text-[14px] md:text-[clamp(16px,2vw,20px)] px-6 py-3 rounded-full"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -128,7 +128,7 @@ export default function HeroPanel({
                 muted
                 loop
                 playsInline
-                className="rounded-none md:rounded-lg object-cover w-full md:w-[640px] h-full"
+                className="rounded-none md:rounded-lg object-cover w-full h-full md:max-w-[700px] md:aspect-square"
                 poster=""
               />
             )}
