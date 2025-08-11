@@ -108,10 +108,12 @@ export default function ContactSection({
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.slice(0, typeof window !== 'undefined' && window.innerWidth < 768 ? 2 : 3).map((post, index) => (
+              {blogPosts.map((post, index) => (
                 <motion.div
                   key={index}
-                  className="rounded-xl overflow-hidden transition-all duration-300 cursor-pointer"
+                  className={`rounded-xl overflow-hidden transition-all duration-300 cursor-pointer ${
+                    index >= 2 ? 'hidden md:block' : ''
+                  } ${index >= 3 ? 'hidden' : ''}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -123,12 +125,13 @@ export default function ContactSection({
                   }}
                   onClick={() => window.open(post.link, '_blank', 'noopener,noreferrer')}
                 >
-                  <div className="relative h-60 w-full">
+                  <div className="relative w-full">
                     <Image
                       src={post.image}
                       alt={post.name}
-                      fill
-                      className="object-cover rounded-2xl"
+                      width={400}
+                      height={240}
+                      className="object-contain w-full h-auto rounded-2xl"
                     />
                   </div>
                   <div className='py-4'>

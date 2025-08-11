@@ -223,7 +223,7 @@ export default function ServicesSection({
                 {services[activeService]?.image && (
                   <motion.div 
                     key={activeService}
-                    className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden"
+                    className="relative w-full rounded-2xl overflow-hidden"
                     initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
                     animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                     exit={{ opacity: 0, scale: 0.9, rotateY: 15 }}
@@ -237,8 +237,8 @@ export default function ServicesSection({
                       src={services[activeService].image}
                       alt={services[activeService].title}
                       width={400}
-                      height={800}
-                      className="object-cover"
+                      height={500}
+                      className="object-contain w-full h-auto max-h-[600px] mx-auto rounded-2xl"
                     />
                   </motion.div>
                 )}
